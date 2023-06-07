@@ -1,26 +1,30 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <v-app>
+    <v-main>
+      <viewPrinciapl/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import viewPrinciapl from './components/viewPrinciapl.vue'
 
 export default {
   name: 'App',
+
   components: {
-    HelloWorld
-  }
+    viewPrinciapl,
+  },
+
+  beforeMount() {
+    // Borrar la caché del navegador antes de cargar la página
+    window.addEventListener('beforeunload', () => {
+      window.localStorage.clear();
+      window.sessionStorage.clear();
+      if (navigator.userAgent.indexOf('MSIE') !== -1 || !!document.documentMode === true) { 
+        document.execCommand('ClearAuthenticationCache');
+      }
+    });
+  },
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
